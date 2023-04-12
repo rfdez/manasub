@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
 	extends: ["../../.eslintrc.js", "plugin:@next/next/recommended"],
 	rules: {
@@ -14,6 +16,6 @@ module.exports = {
 				],
 			},
 		],
-		"@next/next/no-html-link-for-pages": "off",
+		"@next/next/no-html-link-for-pages": [2, path.join(__dirname, "src/app")],
 	},
 };
