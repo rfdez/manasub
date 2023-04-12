@@ -1,0 +1,9 @@
+{
+	"name": "@manasub/backend-issm-context",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@manasub/shared-context": "workspace:*",
+		"diod": "2.0.0"
+	}
+}

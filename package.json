@@ -1,0 +1,32 @@
+{
+	"name": "manasub-monorepo",
+	"version": "0.0.0",
+	"private": true,
+	"engines": {
+		"node": ">=16.8.0",
+		"pnpm": ">=6.0.0"
+	},
+	"packageManager": "pnpm@8.0.0",
+	"scripts": {
+		"issm:app:dev": "pnpm --filter @manasub/issm-app dev",
+		"issm:app:build": "pnpm --filter @manasub/issm-app build",
+		"issm:app:start": "pnpm --filter @manasub/issm-app start",
+		"lint": "eslint --ignore-path .gitignore .",
+		"lint:fix": "eslint --fix --ignore-path .gitignore ."
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "5.58.0",
+		"@typescript-eslint/parser": "5.58.0",
+		"eslint": "8.38.0",
+		"eslint-config-prettier": "8.8.0",
+		"eslint-plugin-folders": "1.0.4",
+		"eslint-plugin-hexagonal-architecture": "1.0.3",
+		"eslint-plugin-import": "2.27.5",
+		"eslint-plugin-node": "11.1.0",
+		"eslint-plugin-prettier": "4.2.1",
+		"eslint-plugin-promise": "6.1.1",
+		"eslint-plugin-simple-import-sort": "10.0.0",
+		"eslint-plugin-unused-imports": "2.0.0",
+		"prettier": "2.8.7"
+	}
+}
