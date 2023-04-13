@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-	extends: ["../../.eslintrc.js", "plugin:@next/next/recommended"],
+	extends: ["plugin:@next/next/recommended"],
 	rules: {
 		"no-restricted-imports": [
 			"error",
