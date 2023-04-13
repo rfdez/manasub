@@ -9,9 +9,7 @@ module.exports = {
 				patterns: [
 					"@manasub/*",
 					"!@manasub/frontend-issm-context",
-					"!@manasub/backend-issm-context",
 					"!@manasub/frontend-shared-context",
-					"!@manasub/backend-shared-context",
 					"!@manasub/shared-context",
 				],
 			},

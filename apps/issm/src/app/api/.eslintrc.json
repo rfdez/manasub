@@ -1,0 +1,14 @@
+{
+	"rules": {
+		"no-restricted-imports": [
+			"error", {
+				"patterns": [
+					"@manasub/*",
+					"!@manasub/backend-issm-context",
+					"!@manasub/backend-shared-context",
+					"!@manasub/shared-context"
+				]
+			}
+		]
+  }
+}
