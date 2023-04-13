@@ -19,6 +19,8 @@ export async function PUT(request: Request): Promise<Response> {
 
 		return new Response(null, { status: 201 });
 	} catch (error: unknown) {
+		console.error(error);
+
 		return new Response(null, { status: 500 });
 	}
 }
