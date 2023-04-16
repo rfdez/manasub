@@ -116,9 +116,6 @@ importers:
       pg:
         specifier: 8.10.0
         version: 8.10.0
-      reflect-metadata:
-        specifier: 0.1.13
-        version: 0.1.13
       typeorm:
         specifier: 0.3.14
         version: 0.3.14(pg@8.10.0)
@@ -126,6 +123,9 @@ importers:
       '@types/convict':
         specifier: 6.1.1
         version: 6.1.1
+      reflect-metadata:
+        specifier: 0.1.13
+        version: 0.1.13
 
   contexts/shared:
     dependencies:
@@ -3950,7 +3950,6 @@ packages:
 
   /reflect-metadata@0.1.13:
     resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
-    dev: false
 
   /regexp.prototype.flags@1.4.3:
     resolution: {integrity: sha512-fjggEOO3slI6Wvgjwflkc4NFRCTZAu5CnNfBd5qOMYhWdn67nJBBu34/TkD++eeFmd8C9r9jfXJ27+nSiRkSUA==}
