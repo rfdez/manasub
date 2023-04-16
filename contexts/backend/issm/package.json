@@ -4,6 +4,13 @@
 	"private": true,
 	"dependencies": {
 		"@manasub/shared-context": "workspace:*",
-		"diod": "2.0.0"
+		"convict": "6.2.4",
+		"diod": "2.0.0",
+		"pg": "8.10.0",
+		"typeorm": "0.3.14"
+	},
+	"devDependencies": {
+		"@types/convict": "6.1.1",
+		"reflect-metadata": "0.1.13"
 	}
 }

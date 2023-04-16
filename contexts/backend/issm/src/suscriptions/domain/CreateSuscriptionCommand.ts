@@ -2,16 +2,16 @@ import { Command } from "@manasub/shared-context/src/domain/command/Command";
 
 type Params = {
 	id: string;
-	service: string;
+	name: string;
 };
 
 export class CreateSuscriptionCommand extends Command {
 	id: string;
-	service: string;
+	name: string;
 
-	constructor({ id, service }: Params) {
+	constructor({ id, name }: Params) {
 		super();
 		this.id = id;
-		this.service = service;
+		this.name = name;
 	}
 }

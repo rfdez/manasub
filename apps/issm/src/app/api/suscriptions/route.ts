@@ -6,13 +6,13 @@ import { CommandBus } from "@manasub/shared-context/src/domain/command/CommandBu
 
 interface SuscriptionPutRequest {
 	id: string;
-	service: string;
+	name: string;
 }
 
 export async function PUT(request: Request): Promise<Response> {
 	try {
-		const { id, service } = (await request.json()) as SuscriptionPutRequest,
-			createSuscriptionCommand = new CreateSuscriptionCommand({ id, service }),
+		const { id, name } = (await request.json()) as SuscriptionPutRequest,
+			createSuscriptionCommand = new CreateSuscriptionCommand({ id, name }),
 			commandBus = issmContainer.get(CommandBus);
 
 		await commandBus.dispatch(createSuscriptionCommand);
