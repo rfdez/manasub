@@ -8,15 +8,16 @@ import { SuscriptionNameLengthExceeded } from "@manasub/backend-issm-context/src
 interface SuscriptionPutRequest {
 	id: string;
 	name: string;
+	billing: string;
 }
 
 export async function PUT(request: Request): Promise<Response> {
-	const { id, name } = (await request.json()) as SuscriptionPutRequest;
+	const { id, name, billing } = (await request.json()) as SuscriptionPutRequest;
 
 	try {
 		const suscriptionCreator = issmContainer.get(SuscriptionCreator);
 
-		await suscriptionCreator.run({ id, name });
+		await suscriptionCreator.run({ id, name, billing });
 	} catch (error: unknown) {
 		if (
 			error instanceof SuscriptionNameLengthExceeded ||
