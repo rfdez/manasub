@@ -1,4 +1,4 @@
-import { StringValueObject } from "@manasub/shared-context/src/domain/value-object/StringValueObject";
+import { StringValueObject } from "../../shared/domain/value-object/StringValueObject";
 
 import { SuscriptionNameLengthExceeded } from "./SuscriptionNameLengthExceeded";
 

@@ -2,11 +2,7 @@
 const nextConfig = {
 	experimental: {
 		appDir: true,
-		serverComponentsExternalPackages: [
-			"@manasub/backend-issm-context",
-			"@manasub/shared-context",
-			"convict",
-		],
+		serverComponentsExternalPackages: ["@manasub/backend-issm-context", "convict"],
 	},
 	webpack: (config, { webpack }) => {
 		config.plugins.push(

@@ -1,37 +1,35 @@
-import { CreateSuscriptionCommandHandler } from "../../../../src/suscriptions/application/create/CreateSuscriptionCommandHandler";
 import { SuscriptionCreator } from "../../../../src/suscriptions/application/create/SuscriptionCreator";
 import { SuscriptionNameLengthExceeded } from "../../../../src/suscriptions/domain/SuscriptionNameLengthExceeded";
 import { SuscriptionRepositoryMock } from "../../__mocks__/CourseRepositoryMock";
+import { SuscriptionIdMother } from "../../domain/SuscriptionIdMother";
 import { SuscriptionMother } from "../../domain/SuscriptionMother";
+import { SuscriptionNameMother } from "../../domain/SuscriptionNameMother";
 
-import { CreateSuscriptionCommandMother } from "./CreateSuscriptionCommandMother";
-
-let creator: SuscriptionCreator,
-	handler: CreateSuscriptionCommandHandler,
-	repository: SuscriptionRepositoryMock;
+let creator: SuscriptionCreator, repository: SuscriptionRepositoryMock;
 
 beforeEach(() => {
 	repository = new SuscriptionRepositoryMock();
 	creator = new SuscriptionCreator(repository);
-	handler = new CreateSuscriptionCommandHandler(creator);
 });
 
-describe("CreateSuscriptionCommandHandler", () => {
+describe("SuscriptionCreator", () => {
 	test("should create a valid suscription", async () => {
-		const command = CreateSuscriptionCommandMother.random(),
-			suscription = SuscriptionMother.from(command);
+		const id = SuscriptionIdMother.random(),
+			name = SuscriptionNameMother.random(),
+			suscription = SuscriptionMother.from({ id: id.value, name: name.value });
 
-		await handler.handle(command);
+		await creator.run({ id: id.value, name: name.value });
 
 		repository.assertSaveHaveBeenCalledWith(suscription);
 	});
 
 	test("should throw an error if suscription name is exceeded", () => {
 		expect(() => {
-			const command = CreateSuscriptionCommandMother.invalid(),
-				suscription = SuscriptionMother.from(command);
+			const id = SuscriptionIdMother.random(),
+				name = SuscriptionNameMother.invalidName(),
+				suscription = SuscriptionMother.from({ id: id.value, name });
 
-			void handler.handle(command);
+			void creator.run({ id: id.value, name });
 
 			repository.assertSaveHaveBeenCalledWith(suscription);
 		}).toThrow(SuscriptionNameLengthExceeded);

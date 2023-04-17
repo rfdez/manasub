@@ -1,6 +1,5 @@
-import { UuidMother } from "@manasub/shared-context/tests/domain/UuidMother";
-
 import { SuscriptionId } from "../../../src/suscriptions/domain/SuscriptionId";
+import { UuidMother } from "../../shared/domain/UuidMother";
 
 export class SuscriptionIdMother {
 	static create(value: string): SuscriptionId {

@@ -1,8 +1,9 @@
 import "reflect-metadata";
 
+import { InvalidArgumentError } from "@manasub/backend-issm-context/src/shared/domain/value-object/InvalidArgumentError";
 import { issmContainer } from "@manasub/backend-issm-context/src/shared/infrastructure/issmContainer";
-import { CreateSuscriptionCommand } from "@manasub/backend-issm-context/src/suscriptions/domain/CreateSuscriptionCommand";
-import { CommandBus } from "@manasub/shared-context/src/domain/command/CommandBus";
+import { SuscriptionCreator } from "@manasub/backend-issm-context/src/suscriptions/application/create/SuscriptionCreator";
+import { SuscriptionNameLengthExceeded } from "@manasub/backend-issm-context/src/suscriptions/domain/SuscriptionNameLengthExceeded";
 
 interface SuscriptionPutRequest {
 	id: string;
@@ -10,15 +11,22 @@ interface SuscriptionPutRequest {
 }
 
 export async function PUT(request: Request): Promise<Response> {
+	const { id, name } = (await request.json()) as SuscriptionPutRequest;
+
 	try {
-		const { id, name } = (await request.json()) as SuscriptionPutRequest,
-			createSuscriptionCommand = new CreateSuscriptionCommand({ id, name }),
-			commandBus = issmContainer.get(CommandBus);
+		const suscriptionCreator = issmContainer.get(SuscriptionCreator);
 
-		await commandBus.dispatch(createSuscriptionCommand);
-
-		return new Response(null, { status: 201 });
+		await suscriptionCreator.run({ id, name });
 	} catch (error: unknown) {
+		if (
+			error instanceof SuscriptionNameLengthExceeded ||
+			error instanceof InvalidArgumentError
+		) {
+			return new Response(null, { status: 400 });
+		}
+
 		return new Response(null, { status: 500 });
 	}
+
+	return new Response(null, { status: 201 });
 }

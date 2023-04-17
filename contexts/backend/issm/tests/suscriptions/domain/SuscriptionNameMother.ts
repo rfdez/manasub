@@ -1,6 +1,5 @@
-import { WordMother } from "@manasub/shared-context/tests/domain/WordMother";
-
 import { SuscriptionName } from "../../../src/suscriptions/domain/SuscriptionName";
+import { WordMother } from "../../shared/domain/WordMother";
 
 export class SuscriptionNameMother {
 	static create(value: string): SuscriptionName {

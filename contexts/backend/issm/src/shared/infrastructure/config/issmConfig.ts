@@ -7,35 +7,35 @@ const convictConfig = convict({
 			env: "NODE_ENV",
 			default: "development",
 		},
-		typeorm: {
+		postgres: {
 			host: {
 				doc: "The host of the database",
 				format: String,
-				env: "TYPEORM_HOST",
+				env: "POSTGRES_HOST",
 				default: "localhost",
 			},
 			port: {
 				doc: "The port of the database",
 				format: Number,
-				env: "TYPEORM_PORT",
+				env: "POSTGRES_PORT",
 				default: 5432,
 			},
 			username: {
 				doc: "The username of the database",
 				format: String,
-				env: "TYPEORM_USERNAME",
+				env: "POSTGRES_USERNAME",
 				default: "manasub",
 			},
 			password: {
 				doc: "The password of the database",
 				format: String,
-				env: "TYPEORM_PASSWORD",
+				env: "POSTGRES_PASSWORD",
 				default: "manasub",
 			},
 			database: {
 				doc: "The database name",
 				format: String,
-				env: "TYPEORM_DATABASE",
+				env: "POSTGRES_DATABASE",
 				default: "issm",
 			},
 		},

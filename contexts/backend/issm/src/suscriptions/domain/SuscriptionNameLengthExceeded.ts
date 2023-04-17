@@ -1,3 +1,3 @@
-import { InvalidArgumentError } from "@manasub/shared-context/src/domain/value-object/InvalidArgumentError";
+import { InvalidArgumentError } from "../../shared/domain/value-object/InvalidArgumentError";
 
 export class SuscriptionNameLengthExceeded extends InvalidArgumentError {}

@@ -9,8 +9,11 @@ import { SuscriptionRepository } from "../../domain/SuscriptionRepository";
 export class SuscriptionCreator {
 	constructor(private readonly repository: SuscriptionRepository) {}
 
-	async run(params: { id: SuscriptionId; name: SuscriptionName }): Promise<void> {
-		const suscription = Suscription.create(params.id, params.name);
+	async run(params: { id: string; name: string }): Promise<void> {
+		const id = new SuscriptionId(params.id),
+			name = new SuscriptionName(params.name),
+			suscription = Suscription.create(id, name);
+
 		await this.repository.save(suscription);
 	}
 }

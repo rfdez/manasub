@@ -1,6 +1,6 @@
 import { DataSource, EntitySchema, Repository } from "typeorm";
 
-import { AggregateRoot } from "@manasub/shared-context/src/domain/AggregateRoot";
+import { AggregateRoot } from "../../../domain/AggregateRoot";
 
 export abstract class TypeOrmRepository<T extends AggregateRoot> {
 	constructor(private readonly _client: Promise<DataSource>) {}

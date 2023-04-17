@@ -1,5 +1,5 @@
-import { AggregateRoot } from "@manasub/shared-context/src/domain/AggregateRoot";
-import { Primitives } from "@manasub/shared-context/src/domain/Primitives";
+import { AggregateRoot } from "../../shared/domain/AggregateRoot";
+import { Primitives } from "../../shared/domain/Primitives";
 
 import { SuscriptionId } from "./SuscriptionId";
 import { SuscriptionName } from "./SuscriptionName";

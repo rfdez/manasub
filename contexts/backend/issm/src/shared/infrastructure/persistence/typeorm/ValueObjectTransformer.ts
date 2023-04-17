@@ -1,9 +1,5 @@
-import { Newable } from "diod";
-
-import {
-	PrimitiveTypes,
-	ValueObject,
-} from "@manasub/shared-context/src/domain/value-object/ValueObject";
+import { Newable } from "../../../domain/Newable";
+import { PrimitiveTypes, ValueObject } from "../../../domain/value-object/ValueObject";
 
 export const ValueObjectTransformer: <T extends PrimitiveTypes>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
