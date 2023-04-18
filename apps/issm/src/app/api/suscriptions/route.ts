@@ -47,7 +47,6 @@ export async function PUT(request: Request): Promise<Response> {
 	return new Response(null, { status: 201 });
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export async function GET(): Promise<Response> {
 	let suscriptions: SuscriptionsResponse;
 
