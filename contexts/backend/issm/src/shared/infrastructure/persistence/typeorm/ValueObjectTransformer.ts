@@ -1,17 +1,27 @@
 import { Newable } from "../../../domain/Newable";
 import { PrimitiveTypes, ValueObject } from "../../../domain/value-object/ValueObject";
 
+export const NullableValueObjectTransformer: <T extends PrimitiveTypes>(
+	ValueObject: Newable<ValueObject<T>>
+) => {
+	to: (value?: ValueObject<T>) => T | undefined;
+	from: (value?: T) => ValueObject<T> | undefined;
+} = <T extends PrimitiveTypes>(ValueObject: Newable<ValueObject<T>>) => {
+	return {
+		to: (value?: ValueObject<T>): T | undefined => (value ? value.value : undefined),
+		from: (value?: T): ValueObject<T> | undefined =>
+			value ? new ValueObject(value) : undefined,
+	};
+};
+
 export const ValueObjectTransformer: <T extends PrimitiveTypes>(
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	ValueObject: Newable<ValueObject<any>>
+	ValueObject: Newable<ValueObject<T>>
 ) => {
 	to: (value: ValueObject<T>) => T;
 	from: (value: T) => ValueObject<T>;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-} = <T extends PrimitiveTypes>(ValueObject: Newable<ValueObject<any>>) => {
+} = <T extends PrimitiveTypes>(ValueObject: Newable<ValueObject<T>>) => {
 	return {
 		to: (value: ValueObject<T>): T => value.value,
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		from: (value: T): ValueObject<T> => new ValueObject(value),
 	};
 };

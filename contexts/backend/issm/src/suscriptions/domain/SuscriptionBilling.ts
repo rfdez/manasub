@@ -1,5 +1,6 @@
-import { InvalidArgumentError } from "../../shared/domain/value-object/InvalidArgumentError";
 import { StringValueObject } from "../../shared/domain/value-object/StringValueObject";
+
+import { InvalidBillingPeriod } from "./InvalidBillingPeriod";
 
 export enum BillingPeriod {
 	MONTHLY = "monthly",
@@ -19,7 +20,7 @@ export class SuscriptionBilling extends StringValueObject {
 			case BillingPeriod.YEARLY:
 				return new SuscriptionBilling(BillingPeriod.YEARLY);
 			default:
-				throw new InvalidArgumentError(`The billing period ${value} is invalid`);
+				throw new InvalidBillingPeriod(value);
 		}
 	}
 
@@ -30,7 +31,7 @@ export class SuscriptionBilling extends StringValueObject {
 			case BillingPeriod.YEARLY:
 				return 12;
 			default:
-				throw new InvalidArgumentError(`The billing period ${this.value} is invalid`);
+				throw new InvalidBillingPeriod(this.value);
 		}
 	}
 
@@ -45,6 +46,6 @@ export class SuscriptionBilling extends StringValueObject {
 	}
 
 	private throwErrorForInvalidValue(value: string): void {
-		throw new InvalidArgumentError(`The billing period ${value} is invalid`);
+		throw new InvalidBillingPeriod(value);
 	}
 }

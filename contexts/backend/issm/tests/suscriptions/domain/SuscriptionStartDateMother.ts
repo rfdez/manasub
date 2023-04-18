@@ -11,6 +11,10 @@ export class SuscriptionStartDateMother {
 		return this.create(DateMother.random());
 	}
 
+	static after(startDate: Date): SuscriptionStartDate {
+		return this.create(DateMother.after(startDate));
+	}
+
 	static invalidStartDate(): string {
 		return WordMother.random({ maxLength: 5 });
 	}

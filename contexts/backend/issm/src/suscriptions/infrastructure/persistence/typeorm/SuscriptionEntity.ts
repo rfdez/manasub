@@ -1,6 +1,9 @@
 import { EntitySchema } from "typeorm";
 
-import { ValueObjectTransformer } from "../../../../shared/infrastructure/persistence/typeorm/ValueObjectTransformer";
+import {
+	NullableValueObjectTransformer,
+	ValueObjectTransformer,
+} from "../../../../shared/infrastructure/persistence/typeorm/ValueObjectTransformer";
 import { Suscription } from "../../../domain/Suscription";
 import { SuscriptionBilling } from "../../../domain/SuscriptionBilling";
 import { SuscriptionId } from "../../../domain/SuscriptionId";
@@ -27,6 +30,11 @@ export const SuscriptionEntity = new EntitySchema<Suscription>({
 		startDate: {
 			type: Date,
 			transformer: ValueObjectTransformer(SuscriptionStartDate),
+		},
+		endDate: {
+			type: Date,
+			nullable: true,
+			transformer: NullableValueObjectTransformer(SuscriptionStartDate),
 		},
 	},
 });
