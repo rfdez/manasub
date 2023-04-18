@@ -90,10 +90,7 @@ export class Suscription extends AggregateRoot {
 	}
 
 	remaningTime(): string | undefined {
-		const nextPayment = this.nextPayment(),
-			diff = nextPayment.getTime() - new Date().getTime(),
-			days = Math.ceil(diff / (1000 * 60 * 60 * 24)),
-			months = Math.floor(days / 30),
+		const { months, days } = this.dateDiff(new Date(), this.nextPayment()),
 			monthsText = `${months} month${months > 1 ? "s" : ""}`,
 			daysText = `${days} day${days > 1 ? "s" : ""}`,
 			remaningTimeText = `${months > 0 ? `${monthsText}${days > 0 ? " " : ""}` : ""}${
@@ -101,6 +98,46 @@ export class Suscription extends AggregateRoot {
 			}`;
 
 		return remaningTimeText ? remaningTimeText : undefined;
+	}
+
+	private dateDiff(
+		startingDate: Date,
+		endingDate: Date
+	): { years: number; days: number; months: number } {
+		const startDate = new Date(startingDate),
+			endDate = new Date(endingDate);
+
+		if (startDate > endDate) {
+			return { years: 0, months: 0, days: 0 };
+		}
+
+		const startYear = startDate.getFullYear(),
+			february =
+				(startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0 ? 29 : 28,
+			daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+		let yearDiff = endDate.getFullYear() - startYear,
+			monthDiff = endDate.getMonth() - startDate.getMonth();
+
+		if (monthDiff < 0) {
+			yearDiff--;
+			monthDiff += 12;
+		}
+
+		let dayDiff = endDate.getDate() - startDate.getDate();
+
+		if (dayDiff < 0) {
+			if (monthDiff > 0) {
+				monthDiff--;
+			} else {
+				yearDiff--;
+				monthDiff = 11;
+			}
+
+			dayDiff += daysInMonth[startDate.getMonth()];
+		}
+
+		return { years: yearDiff, months: monthDiff, days: dayDiff };
 	}
 
 	private ensureEndDateIsAfterStartDate(): void {
