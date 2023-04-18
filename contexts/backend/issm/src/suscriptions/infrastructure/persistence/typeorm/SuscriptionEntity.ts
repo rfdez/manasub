@@ -13,6 +13,7 @@ import { SuscriptionStartDate } from "../../../domain/SuscriptionStartDate";
 export const SuscriptionEntity = new EntitySchema<Suscription>({
 	name: "Suscription",
 	tableName: "suscriptions",
+	target: Suscription,
 	columns: {
 		id: {
 			type: String,

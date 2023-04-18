@@ -68,6 +68,41 @@ export class Suscription extends AggregateRoot {
 		};
 	}
 
+	nextPayment(): Date {
+		if (this.startDate.value > new Date()) {
+			return this.startDate.value;
+		}
+
+		const interval = this.billing.inMonths(),
+			startDate = this.startDate.value;
+
+		let nextPayment = new Date(startDate.setMonth(startDate.getMonth() + interval));
+
+		while (nextPayment < new Date()) {
+			nextPayment = new Date(nextPayment.setMonth(nextPayment.getMonth() + interval));
+		}
+
+		if (this.endDate && this.endDate.value <= nextPayment) {
+			return this.endDate.value;
+		}
+
+		return nextPayment;
+	}
+
+	remaningTime(): string {
+		const nextPayment = this.nextPayment(),
+			diff = nextPayment.getTime() - new Date().getTime(),
+			days = Math.ceil(diff / (1000 * 60 * 60 * 24)),
+			months = Math.floor(days / 30),
+			monthsText = `${months} month${months > 1 ? "s" : ""}`,
+			daysText = `${days} day${days > 1 ? "s" : ""}`,
+			remaningTimeText = `${months > 0 ? `${monthsText}${days > 0 ? " " : ""}` : ""}${
+				days > 0 ? daysText : ""
+			}`;
+
+		return remaningTimeText;
+	}
+
 	private ensureEndDateIsAfterStartDate(): void {
 		if (this.endDate && this.endDate.value < this.startDate.value) {
 			throw new SuscriptionEndDateBeforeStartDate(this.startDate.value, this.endDate.value);
