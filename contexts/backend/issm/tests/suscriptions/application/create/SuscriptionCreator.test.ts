@@ -6,6 +6,7 @@ import { SuscriptionBillingMother } from "../../domain/SuscriptionBillingMother"
 import { SuscriptionIdMother } from "../../domain/SuscriptionIdMother";
 import { SuscriptionMother } from "../../domain/SuscriptionMother";
 import { SuscriptionNameMother } from "../../domain/SuscriptionNameMother";
+import { SuscriptionStartDateMother } from "../../domain/SuscriptionStartDateMother";
 
 let creator: SuscriptionCreator, repository: SuscriptionRepositoryMock;
 
@@ -19,13 +20,20 @@ describe("SuscriptionCreator", () => {
 		const id = SuscriptionIdMother.random(),
 			name = SuscriptionNameMother.random(),
 			billing = SuscriptionBillingMother.random(),
+			startDate = SuscriptionStartDateMother.random(),
 			suscription = SuscriptionMother.from({
 				id: id.value,
 				name: name.value,
 				billing: billing.value,
+				startDate: startDate.value,
 			});
 
-		await creator.run({ id: id.value, name: name.value, billing: billing.value });
+		await creator.run({
+			id: id.value,
+			name: name.value,
+			billing: billing.value,
+			startDate: startDate.value,
+		});
 
 		repository.assertSaveHaveBeenCalledWith(suscription);
 	});
@@ -35,13 +43,20 @@ describe("SuscriptionCreator", () => {
 			const id = SuscriptionIdMother.random(),
 				name = SuscriptionNameMother.invalidName(),
 				billing = SuscriptionBillingMother.random(),
+				startDate = SuscriptionStartDateMother.random(),
 				suscription = SuscriptionMother.from({
 					id: id.value,
 					name,
 					billing: billing.value,
+					startDate: startDate.value,
 				});
 
-			void creator.run({ id: id.value, name, billing: billing.value });
+			void creator.run({
+				id: id.value,
+				name,
+				billing: billing.value,
+				startDate: startDate.value,
+			});
 
 			repository.assertSaveHaveBeenCalledWith(suscription);
 		}).toThrow(SuscriptionNameLengthExceeded);
@@ -52,9 +67,20 @@ describe("SuscriptionCreator", () => {
 			const id = SuscriptionIdMother.random(),
 				name = SuscriptionNameMother.random(),
 				billing = SuscriptionBillingMother.invalidBillingPeriod(),
-				suscription = SuscriptionMother.from({ id: id.value, name: name.value, billing });
+				startDate = SuscriptionStartDateMother.random(),
+				suscription = SuscriptionMother.from({
+					id: id.value,
+					name: name.value,
+					billing,
+					startDate: startDate.value,
+				});
 
-			void creator.run({ id: id.value, name: name.value, billing });
+			void creator.run({
+				id: id.value,
+				name: name.value,
+				billing,
+				startDate: startDate.value,
+			});
 
 			repository.assertSaveHaveBeenCalledWith(suscription);
 		}).toThrow(InvalidArgumentError);

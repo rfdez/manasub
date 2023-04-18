@@ -9,15 +9,16 @@ interface SuscriptionPutRequest {
 	id: string;
 	name: string;
 	billing: string;
+	startDate: Date;
 }
 
 export async function PUT(request: Request): Promise<Response> {
-	const { id, name, billing } = (await request.json()) as SuscriptionPutRequest;
+	const { id, name, billing, startDate } = (await request.json()) as SuscriptionPutRequest;
 
 	try {
 		const suscriptionCreator = issmContainer.get(SuscriptionCreator);
 
-		await suscriptionCreator.run({ id, name, billing });
+		await suscriptionCreator.run({ id, name, billing, startDate });
 	} catch (error: unknown) {
 		if (
 			error instanceof SuscriptionNameLengthExceeded ||
