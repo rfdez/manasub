@@ -74,7 +74,7 @@ export class Suscription extends AggregateRoot {
 		}
 
 		const interval = this.billing.inMonths(),
-			startDate = this.startDate.value;
+			startDate = new Date(this.startDate.value);
 
 		let nextPayment = new Date(startDate.setMonth(startDate.getMonth() + interval));
 
