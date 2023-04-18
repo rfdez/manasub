@@ -89,7 +89,7 @@ export class Suscription extends AggregateRoot {
 		return nextPayment;
 	}
 
-	remaningTime(): string {
+	remaningTime(): string | undefined {
 		const nextPayment = this.nextPayment(),
 			diff = nextPayment.getTime() - new Date().getTime(),
 			days = Math.ceil(diff / (1000 * 60 * 60 * 24)),
@@ -100,7 +100,7 @@ export class Suscription extends AggregateRoot {
 				days > 0 ? daysText : ""
 			}`;
 
-		return remaningTimeText;
+		return remaningTimeText ? remaningTimeText : undefined;
 	}
 
 	private ensureEndDateIsAfterStartDate(): void {

@@ -7,7 +7,7 @@ interface SuscriptionResponse {
 	startDate: Date;
 	endDate?: Date;
 	nextPayment: Date;
-	remaningTime: string;
+	remaningTime?: string;
 }
 
 export class SuscriptionsResponse {
